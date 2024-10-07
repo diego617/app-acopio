@@ -27,7 +27,7 @@ table tbody tr:last-of-type{
   border-bottom: 2px solid #34495e
 }
 table tbody tr{
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #9022cf;
 }
 table tbody tr:hover{
   cursor: pointer;
