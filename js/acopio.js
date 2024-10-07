@@ -102,7 +102,7 @@ function mostrarAcopioAlmacen(acopioAlmacen){
 
 async function acopio(){
   try {
-    const response  = await fetch('../db/acopio2024.json');
+    const response  = await fetch('./db/acopio2024.json');
     const acopio = await response.json();
     agruparAcopioMes(acopio);
   } catch (error) {
