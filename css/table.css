@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+table{
+  border-collapse: collapse;
+  /*border: 1px solid red;*/
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-family: "Poppins", sans-serif;
+  border-radius: 8px;
+}
+
+table thead tr{
+  height: 50px;
+  /*border: 1px solid #cccccc;*/
+  background-color: #e2e2e2;
+  /*background-image: linear-gradient(to right, #a31fb8, #6722cc, #4327d2);*/
+}
+table thead tr th{
+  /*border: 1px solid #cccccc;*/
+  color: #222222;
+  width: auto;
+}
+table thead tr th, table tbody tr td{
+  padding: 0px 10px;
+  text-align: center;
+}
+table tbody tr:last-of-type{
+  border-bottom: 2px solid #34495e
+}
+table tbody tr{
+  border-bottom: 1px solid #cccccc;
+}
+table tbody tr:hover{
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+/*table tbody tr:nth-child(even){
+  background-color: #f3f3f3;
+}*/
+table tbody tr td{
+  width: auto;
+  white-space: nowrap;
+  height: 35px;
+  color: #333333;
+}
+table tbody tr .pg{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+table tbody tr .pg progress{
+  width: 80px;
+  height: 15px;
+}
+table tbody tr .pg span{
+  font-weight: 600;
+  font-size: 12px;
+  color: green;
+}
+.scroll{
+  overflow-x: auto;
+  width: 1100px;
+}
+
