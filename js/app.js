@@ -29,21 +29,29 @@ function createElementHtml(datos){
 }
 
 function listMonth(values){
-  
-  //console.log(values)
+  //let a,b = document.createElement('td')
+  const pd = {product:"Teclado",preci:20}
+  a = pd.product
+  b = pd.preci
+  console.log(a,b)
   for(const[key,value] of Object.entries(values)){
-    //console.log(value);
+    //console.log(key[0],key[1]);
+    const promedio = value.totalcompra / value.kilosnetos
     const row = document.createElement('tr');
-    const cell = document.createElement('td');
+    let cell = document.createElement('td');
     const cellKg = document.createElement('td');
+    console.log(cell);
     const cellPro = document.createElement('td');
     const cellCom = document.createElement('td');
     row.appendChild(cell).textContent = key;
     row.appendChild(cellKg).textContent = value.kilosnetos.toLocaleString('en-US');
-    row.appendChild(cellPro).textContent = value.totalcompra / value.kilosnetos
-    
+    row.appendChild(cellPro).textContent = promedio.toLocaleString('en-US');
     row.appendChild(cellCom).textContent = value.totalcompra.toLocaleString('en-US');
     table.appendChild(row);
+    cellCom.style.textAlign = 'right'
+    if(key === "Total"){
+      row.style.fontWeight = '600'
+    }
    //console.log(value.apfacturaapneto[1])
   }
 
