@@ -77,7 +77,7 @@ function mostrarAcopioMes(acopioMes){
 function mostrarAcopioAlmacen(acopioAlmacen){ 
   const tbody = document.getElementById('ingreso-almacen');
   let resulado = []
-  const arr = ['ALMACEN FLORIDA','ALMACEN YURINAKI'];
+  const arr = ['Almacen Florida','Almacen Yurinaki'];
   let i = 0
   let cant = 0;
   for(const[index,data] of Object.entries(acopioAlmacen)){
