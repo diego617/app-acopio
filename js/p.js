@@ -34,20 +34,43 @@ let b = 150;
 //producto.almacenYurinaki.acopioY = b
 //producto[almacenYurinaki].acopioY = b;
 
-let acopioAlmacen = {
-  almacenFlorida: {acopioF: a},
-  almacenYurinaki: {acopioY: b}
-}
+let acopioAlmacen = {}
+acopioAlmacen.name = {number:10};
 let arr = ['Alamcen1','Almacen2','Alamcen3']
 let index = 0;
 let renplazar = 0;
 for(const value in acopioAlmacen){
   renplazar = arr[index]
   index++;
-    //return renplazar
-  console.log(renplazar)
+  console.log(value)
 }
 //console.log(acopioAlmacen)
+
+let person = {}
+person.Name;
+person.Name = {name1: "diego"}
+//console.log(person)
+
+function operacion(num1,num2){
+  let res = num1 * num2;
+  return res;
+}
+
+let resultado = operacion(10,5);
+let resultado2 = operacion(10,6);
+let resultado3 = operacion(8,5);
+
+console.log(resultado);
+console.log(resultado2);
+console.log(resultado3);
+
+
+
+
+
+
+
+
   
 
 
