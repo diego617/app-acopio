@@ -48,9 +48,10 @@ table tbody tr:hover{
 /*table tbody tr:nth-child(even){
   background-color: #f3f3f3;
 }*/
-.bar{
-  width: 500px;
+.line-bar{
+  width: 100%;
   height: auto;
+  background-color: #fdfefe;
 }
 
 table tbody tr .pg{

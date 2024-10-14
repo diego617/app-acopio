@@ -4,35 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/tabla.css">
-    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="#"></a></li>
-      <li><a href="#"></a></li>
-      <li><a href="#"></a></li>
-      <li><a href="#"></a></li>
-    </ul>
-  </nav>
-  <div class="content">
-    <header class="header">2</header>
-    <main>
-      <table>
+  <header class="header-vertical">
+    <h4>Menu navegación</h4>
+    <nav>
+      <ul>
+        <li><a href="#">Comtratos</a></li>
+        <li><a href="#">Compra</a></li>
+        <li><a href="#">Venta</a></li>
+        <li><a href="#">Stock</a></li>
+      </ul>
+    </nav>
+  </header>
+  <header class="header-horizontal">2</header>
+  <main>
+    <div class="table-month">
+      <table class="table-month">
         <thead>
           <tr>
               <th>Mes</th>
               <th>Kilos Netos</th>
-              <th>P. Promedio</th>
+              <th>Promedio</th>
               <th>Total Compra</th>
           </tr>
         </thead>
         <tbody id="table-content"></tbody>
       </table>
-      <br>
+    </div>
+    <div class="table-almacen">
       <table>
         <thead>
           <tr>
@@ -44,14 +47,11 @@
         </thead>
         <tbody id="content-almacen"></tbody>
       </table>
-      <br>
-      <section class="bar">
-        <div>
-          <canvas id="myChart"></canvas>
-        </div>
-      </section>
-    </main>
-  </div>
+    </div>
+    <div class="line-bar">
+      <canvas id="myChart"></canvas>
+    </div>
+  </main>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/app.js"></script>
 </body>
