@@ -26,14 +26,13 @@ function groupMonth(data){
       almacen["almacenyurinaki"].totalcompra += value.apfacturatotal;
     }
   });
-  chartBar(months)
+  lineBar(months)
   months.Total;
   months.Total = {kilosnetos:kNetos,totalcompra:tCompra};
   almacen.total;
   almacen.total = {kilosnetos:kNetos,totalcompra:tCompra};
   listMonth(months);
   listAlmacen(almacen)
-  console.log(almacen);
 }
 
 function listAlmacen(almcenes){
@@ -81,7 +80,7 @@ function listMonth(values){
     }
   }
 }
-function chartBar(datos){
+function lineBar(datos){
   const ctx = document.getElementById('myChart');
   console.log(datos)
   new Chart(ctx, {
