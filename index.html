@@ -4,25 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/tabla.css">
-    <link rel="stylesheet" href="css/header.css">
+    <!--<link rel="stylesheet" href="css/header.css">-->
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
 <body>
   <header class="header-vertical">
+    <div class="perfil">
+      <span>logo</span>
+    </div>
     <h4>Menu navegación</h4>
     <nav>
       <ul>
-        <li><a href="#">Comtratos</a></li>
-        <li><a href="#">Compra</a></li>
-        <li><a href="#">Venta</a></li>
-        <li><a href="#">Stock</a></li>
+        <li class="active"><img class="icono" src="img/barra-grafica.png" alt=""><a href="#">Dashboard</a></li>
+        <li><img class="icono" src="img/contrato.png" alt=""><a href="#">Contratos</a></li>
+        <li><img class="icono" src="img/mano.png" alt=""><a href="#">Ventas</a></li>
+        <li><a href="#">Acopio</a></li>
+        <li><a href="#">Configurar</a></li>
       </ul>
     </nav>
   </header>
-  <header class="header-horizontal">2</header>
+  <header class="header-horizontal">
+    <span class="name-page">Dashboard</span>
+  </header>
   <main>
-    <div class="table-month">
+    <div class="month">
       <table class="table-month">
         <thead>
           <tr>
@@ -35,7 +41,7 @@
         <tbody id="table-content"></tbody>
       </table>
     </div>
-    <div class="table-almacen">
+    <div class="almacen">
       <table>
         <thead>
           <tr>

@@ -1,30 +1,67 @@
 .header-horizontal{
   width: 100%;
-  height: 70px;
+  height: 50px;
   border: 1px solid orange;
 }
 .header-vertical{
   width: 200px;
-  border: 1px solid green;
+/*#background-color: #5692F9;*/
+  background-image: linear-gradient(to bottom,#61B6E6,#5692F9,#6FEBCF);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.header-vertical .perfil{
+  margin-top: 15px;
+  text-align: center;
 }
 .header-vertical h4{
-  margin-top: 5px;
+  background-color: #5692F9;
   text-align: center;
+  color: #121926;
+  border: 1px solid green;
 }
 .header-vertical nav{
   margin-top: 10px;
-  margin-left: 10px;
+  width: 100%;
 }
 .header-vertical nav ul{
   list-style: none;
-  /*border: 1px solid green;*/
 }
 .header-vertical nav ul li{
-  height: 35px;
+  height: auto;
+  display: flex;
+  border-bottom: 1px solid #cccccc;
+  padding-left: 10px;
+  /*border: 1px solid green;*/
+
+  & img.icono{
+    width: 25px;
+    height: 25px;
+    /*border: 1px solid tomato;*/
+    margin-top: 2px;
+  }
+  /*&.active{
+    border-radius: 10px 0 0 10px;
+    background-color: #fafafa;
+    height: 40px;
+  }*/
+}
+.header-vertical nav ul li a{
+  width: 100%;
+  height: 40px;
+  padding-left: 5px;
+  text-decoration: none;
+  font-size: .9rem;
+  color: #F2F6F6;
+  font-weight: 500;
   display: flex;
   align-items: center;
 }
-.header-vertical nav ul li a{
-  text-decoration: none;
-  font-size: 1rem;
+.header-vertical nav ul li:hover{
+  background-color: #F2F6F6;
+  cursor: pointer;
+}
+.header-vertical nav ul li a:hover{
+  color: #3f3f3f;
 }
