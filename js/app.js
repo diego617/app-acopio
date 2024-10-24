@@ -82,7 +82,7 @@ function listMonth(values){
 }
 function lineBar(datos){
   const ctx = document.getElementById('myChart');
-  console.log(datos)
+  //console.log(datos)
   new Chart(ctx, {
     type: 'line',
     data: {
@@ -108,10 +108,15 @@ async function conexionAcopio() {
     const res = await fetch('./db/acopio2024.json');
     const data = await res.json();
     groupMonth(data)
+    number(data)
   } catch (error) {
     console.error(error);
   }
     
 }
 
+function number(db){
+  return db;
+}
+export{number};
 conexionAcopio()
