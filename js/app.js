@@ -108,12 +108,9 @@ async function conexionAcopio() {
     const res = await fetch('./db/acopio2024.json');
     const data = await res.json();
     groupMonth(data)
-    number(data)
   } catch (error) {
     console.error(error);
   }
     
 }
-
-
 conexionAcopio()
