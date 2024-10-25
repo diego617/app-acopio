@@ -115,8 +115,5 @@ async function conexionAcopio() {
     
 }
 
-function number(db){
-  return db;
-}
-export{number};
+
 conexionAcopio()
