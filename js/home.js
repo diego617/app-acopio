@@ -3,7 +3,6 @@ export function showTable(){
   const tbody = document.querySelector('.table-content');
   const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic']
   if(tbody){
-    tbody.innerHTML = '';
     for(let row of months){
       const tr = document.createElement('tr');
       const td = document.createElement('td');

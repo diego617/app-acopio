@@ -1,5 +1,5 @@
 const route = (event) =>{
-  window.history.pushState({},"",event.target.href);
+  window.history.pushState({},"",event.currentTarget.href);
   event.preventDefault();
   handleLocation()
 }
@@ -13,6 +13,7 @@ const routes = {
 
 const handleLocation = async () =>{
   const path = window.location.hash || '#/';
+  console.log("=>:",path);
   const route = routes[path] || routes[404];
   const html = await fetch(route).then((data) => data.text());
   const content = document.getElementById('main-content');
@@ -48,5 +49,13 @@ document.addEventListener("DOMContentLoaded", handleLocation);
 window.onpopstate = handleLocation;
 window.route = route;
 
+/*
+const links = document.querySelectorAll('#navigation a');
+links.forEach(link => {
+  link.addEventListener('click',(e) =>{
+    //console.log("link:",e.currentTarget.href);
+  });
+});
+*/
 
-
+ 
