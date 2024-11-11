@@ -1,64 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/tabla.css">
-    <!--<link rel="stylesheet" href="css/header.css">-->
-    <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/tabla.css">
+	<title>Document</title>
 </head>
 <body>
-  <header class="header-vertical">
-    <div class="perfil">
-      <span>logo</span>
-    </div>
-    <h4>Menu navegación</h4>
-    <nav>
-      <ul id="opcion">
-        <li id="dashboard"><a href="#"><img class="icono" src="img/barra-grafica1.png" alt=""><span>Dashboard</span></a></li>
-        <li id="contrato"><a href="#"><img class="icono" src="img/contrato-comercial.png" alt=""><Span>Contratos</Span></a></li>
-        <li id="ventas"><a href="#"><img class="icono" src="img/insignia.png" alt=""><span>Ventas</span></a></li>
-        <li id="acopio"><a href="#"><img class="icono" src="img/almacen.png" alt=""><span>Acopio</span></a></li>
-        <li id="config"><a href="#"><img class="icono" src="img/analitica.png" alt=""><span>Configurar</span></a></li>
-      </ul>
-    </nav>
-  </header>
-  <header class="header-horizontal">
-    <span class="name-page">Dashboard</span>
-  </header>
-  <main id="content">
-    <div class="month">
-      <table class="table-month">
-        <thead>
-          <tr>
-              <th>Mes</th>
-              <th>Kilos Netos</th>
-              <th>Promedio</th>
-              <th>Total Compra</th>
-          </tr>
-        </thead>
-        <tbody id="table-content"></tbody>
-      </table>
-    </div>
-    <div class="almacen">
-      <table>
-        <thead>
-          <tr>
-            <th>Almacen</th>
-            <th>Kilos Netos</th>
-            <th>Promedio</th>
-            <th>Total Compra</th>
-          </tr>
-        </thead>
-        <tbody id="content-almacen"></tbody>
-      </table>
-    </div>
-    <div class="line-bar">
-      <canvas id="myChart"></canvas>
-    </div>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="js/app.js"></script>
+	<header class="header">Header</header>
+	<header class="sidebar">
+		<nav>
+			<ul id="navigation">
+				<li><a href="#/" onclick="route(event)"><img src="iconos/chart.svg" alt=""><span>Dashboard</span></a></li>
+				<li><a href="#/contratos" onclick="route(event)"><img src="iconos/contract.svg" alt=""><span>Contratos</span></a></li>
+				<li><a href="#/acopio-cafe" onclick="route(event)"><img src="iconos/entry.svg" alt=""><span>Acopio</span></a></li>
+				<li><a href="#/ventas" onclick="route(event)"><img src="iconos/dollar.svg" alt=""><span>Ventas</span></a></li>
+			</ul>
+		</nav>
+	</header>
+<main id="main-content"></main>
+<script src="js/index.js"></script>
 </body>
 </html>

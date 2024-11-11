@@ -1,6 +1,5 @@
-const table = document.getElementById('table-content');
-
 function listTable(data){
+  const table = document.getElementById('table-content');
   data.forEach(element => {
     const tr = document.createElement('tr');
     const avance = ((element.acopioQQ) / element.ventaQQ * 100).toFixed(0);
@@ -17,7 +16,7 @@ function listTable(data){
         td.appendChild(posgress)
       }else{
         if(typeof value === 'number'){
-          console.log(value);
+          //console.log(value);
           td.textContent = value.toFixed(2);
         }else{
           td.textContent = value;
@@ -29,13 +28,18 @@ function listTable(data){
   });
 }
 
-async function conexionJson(){
+export async function conexionJson(){
   try {
     const response = await fetch('../db/db.json');
     const data = await response.json();
-    listTable(data);    
+    listTable(data);
   } catch (error) {
     console.error(error);
   } 
 }
-conexionJson()
+//conexionJson()
+
+/*export function mensaje(){
+  const h1 = document.getElementById('h1');
+  h1.textContent = 'CONTRATOS PRUEBA'
+}*/
