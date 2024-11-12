@@ -1,28 +1,18 @@
-import { conexionJson } from "./conexionJson.js";
+import ConexionJson from "./ConexionJson.js";
 
-const data  = conexionJson();
 
-console.log(data)
-
-function dashboard(data){
-  const ms = document.getElementById('ms1')
-  const ms2 = document.getElementById('ms2')
-  const span = document.createElement('span');
+export function dashboard(data){
   const main = document.getElementById('main');
-  /*const res = await fetch("../db/data-2024.json");
-  const data = await res.json();*/
-
+  const acopio = new ConexionJson();
+  acopio.getData()
+    .then(data =>{
+      data.forEach(item =>{
+        console.log(item);
+      })
+    })
   data.forEach(element => {
     console.log(element.mensaje);
-    ms.textContent = element.perido;
-    ms2.textContent = element.mensaje;
-    main.appendChild(span).textContent += "Cargado contenido....";
   });
   
 }
-export async function conexionDB(){
-  const res = await fetch("../db/data-2024.json");
-  const data = await res.json();
-  dashboard(data)
-}
-//dashboard()
+
