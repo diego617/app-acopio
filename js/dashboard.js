@@ -1,9 +1,14 @@
+import { conexionJson } from "./conexionJson.js";
+
+const data  = conexionJson();
+
+console.log(data)
+
 function dashboard(data){
   const ms = document.getElementById('ms1')
   const ms2 = document.getElementById('ms2')
   const span = document.createElement('span');
   const main = document.getElementById('main');
-
   /*const res = await fetch("../db/data-2024.json");
   const data = await res.json();*/
 
