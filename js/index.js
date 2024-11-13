@@ -26,7 +26,7 @@ function executeScripts(path){
     case '#/':
       import("../js/dashboard.js")
       .then(module =>{module.dashboard()})
-      .catch(error => console.log('Error al cargar dashboard', error));
+      .catch(error => console.log('Error al cargar dashboard--0000', error));
       break;
     case '#/contratos':
       

@@ -1,13 +1,15 @@
-import ConexionJson from "./ConexionJson.js";
+
+import Connect  from "./Connect.js";
 
 const nameMonth = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 
-export function dashboard(){
+ function dashboard(){
   const main = document.getElementById('main');
-  const acopio = new ConexionJson();
-  acopio.getData()
+  const acopio = new Connect();
+  acopio.acopioMonth()
     .then(data =>{
-      data.forEach(item =>{
+      console.log("ldl",data)
+      /*data.forEach(item =>{
         const [year,month ] = item.apfacturafecha.split('-');
         //console.log(item.apfacturafecha)
         const date = new Date(year,month -1);
@@ -15,7 +17,8 @@ export function dashboard(){
         const span = document.createElement('span');
         main.appendChild(span).textContent = groupDate;
         console.log(groupDate);
-      })
+      })*/
     }) 
 }
 
+dashboard()
