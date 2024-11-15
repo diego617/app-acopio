@@ -20,7 +20,6 @@ export default class Connect{
 		this.nameMonth = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 		this.acopioMonth = {};
 		this.acopioAlmacen = {};
-		this.kilos_netos = 0;
 	}
 	async connectJson(){
 		try {
@@ -28,15 +27,16 @@ export default class Connect{
 			if(!response.ok){
 				throw new Error(`Error de solicitud ${response.status}`);
 			}
-			const data = await response.json();
-			return data;
+			return await response.json();
 			//console.log(this.data)
 		} catch (error) {
 			console.error(error);
+			return null;
 		}
 	}
-	getIncomeMonths(){
-		this.connectJson().then(data =>{
+	async getIncomeMonths(){
+		const data = await this.connectJson();
+		try {
 			data.forEach(items => {
 				const [year,month] = items.apfacturafecha.split('-');
 				const date = new Date(year,month -1);
@@ -47,14 +47,18 @@ export default class Connect{
 				this.acopioMonth[groupMonth].kilos_netos += items.apfacturaapneto;
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
 			})
+			console.log(this.acopioMonth);
 			return this.acopioMonth;
-		})
-		.catch(error =>{console.log(error)})
+		} catch (error) {
+			console.error("Error en getIncomeMonths",error);
+			throw error;
+		}
+		
 	}
-	getIncomeAlamcen(){
-		this.connectJson().then(data =>{
+	async getIncomeAlmacen(){
+		const data = await this.connectJson();
+		try {
 			data.forEach(items =>{
-
 				if(!this.acopioAlmacen['almacenflorida']){
 					this.acopioAlmacen['almacenflorida'] = {kilos_netos: 0, total_compra:0}
 					this.acopioAlmacen['almacenyurinaki'] = {kilos_netos: 0, total_compra:0}
@@ -68,10 +72,12 @@ export default class Connect{
 				}
 			})
 			return this.acopioAlmacen;
-		})
-		.catch(error =>{console.log(error)});
+			
+		} catch (error) {
+			console.error("Error en getIcomeAlmacen",error)	
+		}
 	}
 }
-/*const acopio =  new ConnectJson()
-acopio.getIncomeMonths()
-acopio.getIncomeAlamcen()*/
+const acopio =  new Connect();
+acopio.getIncomeMonths();
+//acopio.getIncomeAlamcen()

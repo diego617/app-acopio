@@ -1,24 +1,36 @@
 
 import Connect  from "./Connect.js";
+const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 
-const nameMonth = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
-
- function dashboard(){
-  const main = document.getElementById('main');
-  const acopio = new Connect();
-  acopio.acopioMonth()
-    .then(data =>{
-      console.log("ldl",data)
-      /*data.forEach(item =>{
-        const [year,month ] = item.apfacturafecha.split('-');
-        //console.log(item.apfacturafecha)
-        const date = new Date(year,month -1);
-        const groupDate = nameMonth[date.getMonth()];
-        const span = document.createElement('span');
-        main.appendChild(span).textContent = groupDate;
-        console.log(groupDate);
-      })*/
-    }) 
+function mostrar(){
+  const arr = [10,25,15,10,50,45]
+  return arr;
 }
 
-dashboard()
+export async function dashboard(){
+  const ctx = document.getElementById('myChart');
+  const acopio = new Connect()
+  const data = await acopio.getIncomeMonths();
+ 
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: Object.keys(data),
+      datasets: [{
+        label: '# of Votes',
+        data: Object.values(data).map(value => value.kilos_netos),
+        borderWidth: 2
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  }); 
+}
+
+
+
