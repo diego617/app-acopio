@@ -47,7 +47,6 @@ export default class Connect{
 				this.acopioMonth[groupMonth].kilos_netos += items.apfacturaapneto;
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
 			})
-			console.log(this.acopioMonth);
 			return this.acopioMonth;
 		} catch (error) {
 			console.error("Error en getIncomeMonths",error);
@@ -78,6 +77,6 @@ export default class Connect{
 		}
 	}
 }
-const acopio =  new Connect();
-acopio.getIncomeMonths();
+//const acopio =  new Connect();
+//acopio.getIncomeMonths();
 //acopio.getIncomeAlamcen()

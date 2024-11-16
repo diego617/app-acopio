@@ -15,7 +15,7 @@ export async function dashboard(){
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: Object.keys(data),
+      labels: months,//Object.keys(data),
       datasets: [{
         label: '# of Votes',
         data: Object.values(data).map(value => value.kilos_netos),
