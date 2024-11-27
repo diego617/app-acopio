@@ -15,11 +15,11 @@ export async function dashboard(){
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: months,//Object.keys(data),
+      labels: Object.keys(data), //months,
       datasets: [{
-        label: '# of Votes',
+        label: 'KG',
         data: Object.values(data).map(value => value.kilos_netos),
-        borderWidth: 2
+        borderWidth: 2,       
       }]
     },
     options: {

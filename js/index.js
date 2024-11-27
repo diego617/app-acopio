@@ -1,3 +1,5 @@
+//import { link } from "fs";
+
 const route = (event) =>{
   window.history.pushState({},"",event.currentTarget.href);
   event.preventDefault();
@@ -16,6 +18,7 @@ const handleLocation = async () =>{
   //console.log("=>:",path);
   const route = routes[path] || routes[404];
   const html = await fetch(route).then((data) => data.text());
+  //console.log("=>",path);
   const content = document.getElementById('main-content');
   content.innerHTML = html;
   executeScripts(path)
@@ -50,13 +53,13 @@ window.onpopstate = handleLocation;
 window.route = route;
 
 
-/*const links = document.querySelectorAll('#navigation a');
+const links = document.querySelectorAll('#navigation a');
 links.forEach(link => {
   link.addEventListener('click',(e) =>{
-    //console.log("link:",e.currentTarget.href);
-    console.log("link2:",window.location.hash);
+    links.forEach(item => item.classList.remove('active'))
+    link.classList.add('active');
   });
-});*/
+});
 
 
  
