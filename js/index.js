@@ -1,9 +1,8 @@
-//import { link } from "fs";
 
 const route = (event) =>{
   window.history.pushState({},"",event.currentTarget.href);
   event.preventDefault();
-  handleLocation()
+  handleLocation();
 }
 const routes = {
   404: "/pages/404.html",
@@ -15,16 +14,15 @@ const routes = {
 
 const handleLocation = async () =>{
   const path = window.location.hash || '#/';
-  //console.log("=>:",path);
   const route = routes[path] || routes[404];
   const html = await fetch(route).then((data) => data.text());
-  //console.log("=>",path);
   const content = document.getElementById('main-content');
   content.innerHTML = html;
-  executeScripts(path)
+  importPages(path)
+  navigation(path)
 }
 
-function executeScripts(path){
+function importPages(path){
   switch (path){
     case '#/':
       import("../js/dashboard.js")
@@ -32,7 +30,6 @@ function executeScripts(path){
       .catch(error => console.log('Error al cargar dashboard--0000', error));
       break;
     case '#/contratos':
-      
       import("../js/contratos.js")
       .then(module => {module.conexionJson()})
       .catch(error => console.log('Error al cargar productos', error))
@@ -43,9 +40,22 @@ function executeScripts(path){
       .catch(error => console.log("Error al cargar acopio-pergamino",error));
       break;
      default:
-      console.log('Pagina no encontrado');
+      console.log('Pagina no encontrado ..import');
       break; 
   }
+}
+
+function navigation(url){
+  const links = document.querySelectorAll('#navigation a');
+  links.forEach(link => {
+    link.addEventListener('click',() =>{
+      links.forEach(item => item.classList.remove('active'));
+      link.classList.add('active');
+    });
+    if(link.getAttribute('href') === url){
+      link.classList.add('active');
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", handleLocation);
@@ -53,13 +63,6 @@ window.onpopstate = handleLocation;
 window.route = route;
 
 
-const links = document.querySelectorAll('#navigation a');
-links.forEach(link => {
-  link.addEventListener('click',(e) =>{
-    links.forEach(item => item.classList.remove('active'))
-    link.classList.add('active');
-  });
-});
 
 
  

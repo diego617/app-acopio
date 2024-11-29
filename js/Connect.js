@@ -36,17 +36,28 @@ export default class Connect{
 	}
 	async getIncomeMonths(){
 		const data = await this.connectJson();
+		let groupMonth;
 		try {
 			data.forEach(items => {
 				const [year,month] = items.apfacturafecha.split('-');
 				const date = new Date(year,month -1);
-				const groupMonth = this.nameMonth[date.getMonth()];
+				groupMonth = this.nameMonth[date.getMonth()];
 				if(!this.acopioMonth[groupMonth]){
 					this.acopioMonth[groupMonth] = {kilos_netos: 0, total_compra:0}
 				}
 				this.acopioMonth[groupMonth].kilos_netos += items.apfacturaapneto;
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
 			})
+			const lastMonth = Math.max(...data.map(item => new Date(item.apfacturafecha).getMonth()))
+			this.nameMonth.forEach((mes, index) =>{
+				if(!this.acopioMonth[mes] && index <= lastMonth){
+					this.acopioMonth[mes] = {kilos_netos:0,total_compra:0};
+				}
+			});
+			/*const orderAcopioMonth = {};
+			this.nameMonth.forEach(meses =>{
+				orderAcopioMonth[meses] = this.acopioMonth[meses]
+			});*/
 			return this.acopioMonth;
 		} catch (error) {
 			console.error("Error en getIncomeMonths",error);
