@@ -20,6 +20,7 @@ export default class Connect{
 		this.nameMonth = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 		this.acopioMonth = {};
 		this.acopioAlmacen = {};
+		this.orderByMonth = {};
 	}
 	async connectJson(){
 		try {
@@ -36,12 +37,11 @@ export default class Connect{
 	}
 	async getIncomeMonths(){
 		const data = await this.connectJson();
-		let groupMonth;
 		try {
 			data.forEach(items => {
 				const [year,month] = items.apfacturafecha.split('-');
 				const date = new Date(year,month -1);
-				groupMonth = this.nameMonth[date.getMonth()];
+				const groupMonth = this.nameMonth[date.getMonth()];
 				if(!this.acopioMonth[groupMonth]){
 					this.acopioMonth[groupMonth] = {kilos_netos: 0, total_compra:0}
 				}
@@ -49,21 +49,22 @@ export default class Connect{
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
 			})
 			const lastMonth = Math.max(...data.map(item => new Date(item.apfacturafecha).getMonth()))
-			this.nameMonth.forEach((mes, index) =>{
-				if(!this.acopioMonth[mes] && index <= lastMonth){
-					this.acopioMonth[mes] = {kilos_netos:0,total_compra:0};
+			
+			this.nameMonth.forEach((month, index) =>{
+				if(!this.acopioMonth[month] && index <= lastMonth){
+					this.acopioMonth[month] = {kilos_netos:0,total_compra:0};
 				}
 			});
-			/*const orderAcopioMonth = {};
-			this.nameMonth.forEach(meses =>{
-				orderAcopioMonth[meses] = this.acopioMonth[meses]
-			});*/
-			return this.acopioMonth;
+			this.nameMonth.forEach((months,index )=>{
+				if(index <= lastMonth){
+					this.orderByMonth[months] = this.acopioMonth[months]
+				}
+			});
+			return this.orderByMonth
 		} catch (error) {
 			console.error("Error en getIncomeMonths",error);
 			throw error;
-		}
-		
+		}	
 	}
 	async getIncomeAlmacen(){
 		const data = await this.connectJson();
@@ -88,6 +89,6 @@ export default class Connect{
 		}
 	}
 }
-//const acopio =  new Connect();
-//acopio.getIncomeMonths();
-//acopio.getIncomeAlamcen()
+/*const acopio =  new Connect();
+acopio.getIncomeMonths();
+//acopio.getIncomeAlamcen()*/
