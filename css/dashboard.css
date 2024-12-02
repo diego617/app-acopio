@@ -1,12 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
-table{
-  border-collapse: collapse;
-  /*border: 1px solid red;*/
-  overflow: hidden;
-  font-size: 0.85rem;
-  font-family: "Poppins", sans-serif;
+.dashboard{
+	display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: " table chart chart chart";
+  gap: 12px;
+}
+.income-month{
+  grid-area: table;
+}
+.line-bar{
+  grid-area: chart;
+  background-color: #fdfefe;
+  width: 100%;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0,0.5);
   border-radius: 5px;
-  /*box-shadow: 2px 5px 20px 2px;*/
+}
+
+.dashboard table{
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  border-radius: 5px;
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -22,7 +35,7 @@ table thead tr th{
   width: auto;
 }
 table thead tr th, table tbody tr td{
-  padding: 0px 10px;
+  padding: 1px 10px;
   text-align: center;
 }
 /*table tbody tr:last-of-type{
@@ -39,6 +52,7 @@ table tbody tr td{
   color: #333333;
 }
 table tfoot tr td{
+  padding: 0px 10px;
   height: 30px;
   text-align: right;
 }
@@ -49,31 +63,5 @@ table tbody tr:hover{
   cursor: pointer;
   background-color:  #f3f3f3;
 }
-/*table tbody tr:nth-child(even){
-  background-color: #f3f3f3;
-}*/
-.line-bar{
-  width: 100%;
-  height: auto;
-  background-color: #fdfefe;
-}
 
-table tbody tr .pg{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-table tbody tr .pg progress{
-  width: 80px;
-  height: 15px;
-}
-table tbody tr .pg span{
-  font-weight: 600;
-  font-size: 12px;
-  color: green;
-}
-.scroll{
-  overflow-x: auto;
-  width: 1100px;
-}
 
