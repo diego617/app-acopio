@@ -60,7 +60,7 @@ export default class Connect{
 					this.orderByMonth[months] = this.acopioMonth[months]
 				}
 			});
-			return this.orderByMonth
+			return this.orderByMonth;
 		} catch (error) {
 			console.error("Error en getIncomeMonths",error);
 			throw error;

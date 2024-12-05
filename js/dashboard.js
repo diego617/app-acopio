@@ -1,6 +1,10 @@
 
 import Connect  from "./Connect.js";
 
+function prueba(){
+  const arr = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
+  return arr;
+}
 
 const chartAreaBorder = {
   id: 'chartAreaBorder',
@@ -21,13 +25,13 @@ export async function dashboard(){
   const acopio = new Connect()
   const data = await acopio.getIncomeMonths();
   const months = acopio.nameMonth;
-
+  
   incomeMonth(months,data);
 
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: months,
+      labels: prueba(),
       datasets: [
         {
         label: 'KG',
