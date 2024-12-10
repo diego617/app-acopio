@@ -21,6 +21,7 @@ export default class Connect{
 		this.acopioMonth = {};
 		this.acopioAlmacen = {};
 		this.orderByMonth = {};
+		//this.lastMonth = Math.max(...data.map(item => new Date(item.apfacturafecha).getMonth()));
 	}
 	async connectJson(){
 		try {
@@ -48,17 +49,13 @@ export default class Connect{
 				this.acopioMonth[groupMonth].kilos_netos += items.apfacturaapneto;
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
 			})
-			const lastMonth = Math.max(...data.map(item => new Date(item.apfacturafecha).getMonth()))
-			
-			this.nameMonth.forEach((month, index) =>{
-				if(!this.acopioMonth[month] && index <= lastMonth){
+			this.nameMonth.forEach(month =>{
+				if(!this.acopioMonth[month]){
 					this.acopioMonth[month] = {kilos_netos:0,total_compra:0};
 				}
 			});
-			this.nameMonth.forEach((months,index )=>{
-				if(index <= lastMonth){
-					this.orderByMonth[months] = this.acopioMonth[months]
-				}
+			this.nameMonth.forEach(months=>{
+				this.orderByMonth[months] = this.acopioMonth[months]
 			});
 			return this.orderByMonth;
 		} catch (error) {
@@ -86,6 +83,15 @@ export default class Connect{
 			
 		} catch (error) {
 			console.error("Error en getIcomeAlmacen",error)	
+		}
+	}
+	async lastMonthsAcopio(){
+		const data = await this.connectJson();
+		try {
+			const lastMonth = Math.max(...data.map(item => new Date(item.apfacturafecha).getMonth()));
+			return lastMonth;
+		} catch (error) {
+			console.error("Error al obtener el último mes de registro",error)
 		}
 	}
 }

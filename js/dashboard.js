@@ -1,10 +1,4 @@
-
 import Connect  from "./Connect.js";
-
-function prueba(){
-  const arr = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
-  return arr;
-}
 
 const chartAreaBorder = {
   id: 'chartAreaBorder',
@@ -19,26 +13,28 @@ const chartAreaBorder = {
     ctx.restore();
   }
 };
+const acopio = new Connect()
+const data = await acopio.getIncomeMonths();
+const months = acopio.nameMonth;
+const lastMonth = await acopio.lastMonthsAcopio()
+incomeMonth(months,data);
 
 export async function dashboard(){
   const ctx = document.getElementById('myChart');
-  const acopio = new Connect()
-  const data = await acopio.getIncomeMonths();
-  const months = acopio.nameMonth;
   
-  incomeMonth(months,data);
-
   new Chart(ctx, {
     type: 'line',
     data: {
-      labels: prueba(),
+      labels: months,
       datasets: [
         {
         label: 'KG',
-        data: Object.values(data).map(value => value.kilos_netos),
+        data: Object.values(data).map((value,index)=>{
+              return index <= lastMonth ? value.kilos_netos : null
+              }).filter(value => value !== null),
         borderWidth: 2,
-        backgroundColor: '#ccc', 
-        borderColor: 'rgba(13, 71, 161,0.6)', 
+        backgroundColor: 'white', 
+        borderColor: 'rgba(13, 71, 161,0.8)', 
         //pointStyle: 'circle',
         pointRadius: 5,
         pointHoverRadius: 10
