@@ -13,14 +13,14 @@ const chartAreaBorder = {
     ctx.restore();
   }
 };
-const acopio = new Connect()
-const data = await acopio.getIncomeMonths();
-const months = acopio.nameMonth;
-const lastMonth = await acopio.lastMonthsAcopio()
-incomeMonth(months,data);
 
 export async function dashboard(){
   const ctx = document.getElementById('myChart');
+  const acopio = new Connect()
+  const data = await acopio.getIncomeMonths();
+  const months = acopio.nameMonth;
+  const lastMonth = await acopio.lastMonthsAcopio()
+  incomeMonth(data);
   
   new Chart(ctx, {
     type: 'line',
@@ -61,7 +61,7 @@ export async function dashboard(){
 }
 
 
-function incomeMonth(months,data){
+function incomeMonth(data){
   const tbody = document.getElementById('content-income-month');
   const tfoot = document.getElementById('tfoot');
   const tr = document.createElement('tr');
