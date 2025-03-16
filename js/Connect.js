@@ -1,19 +1,4 @@
 
-/*export default class ConexionJson{
-	async getData(){
-		try {
-			const response = await fetch('../db/acopio2024.json');
-			if(!response.ok){
-				throw new Error(`Error de solicitud ${response.status}`);
-			}
-			const data = await response.json();
-			return data;
-		} catch (error) {
-			console.error(error);
-		}
-	}
-}*/
-
 export default class Connect{
 	constructor(){
 		this.url = '../db/acopio2024.json';
@@ -36,33 +21,79 @@ export default class Connect{
 			return null;
 		}
 	}
-	async getIncomeMonths(){
+	async getIncomeByMonths(){
 		const data = await this.connectJson();
 		try {
 			data.forEach(items => {
 				const [year,month] = items.apfacturafecha.split('-');
 				const date = new Date(year,month -1);
 				const groupMonth = this.nameMonth[date.getMonth()];
+				const anio = date.getFullYear();
 				if(!this.acopioMonth[groupMonth]){
-					this.acopioMonth[groupMonth] = {kilos_netos: 0, total_compra:0}
+					this.acopioMonth[groupMonth] = {kilos_netos: 0, total_compra:0,periodo:0}
 				}
 				this.acopioMonth[groupMonth].kilos_netos += items.apfacturaapneto;
 				this.acopioMonth[groupMonth].total_compra += items.apfacturatotal;
+				
 			})
 			this.nameMonth.forEach(month =>{
 				if(!this.acopioMonth[month]){
 					this.acopioMonth[month] = {kilos_netos:0,total_compra:0};
 				}
 			});
+			
 			this.nameMonth.forEach(months=>{
 				this.orderByMonth[months] = this.acopioMonth[months]
 			});
+			//console.log(this.orderByMonth);
 			return this.orderByMonth;
 		} catch (error) {
 			console.error("Error en getIncomeMonths",error);
 			throw error;
 		}	
 	}
+	async getAllIncomeByYear() {
+    const data = await this.connectJson();
+    try {
+        let acopioPorAnio = {}; // Nuevo objeto para separar por año
+
+        data.forEach(items => {
+            const [year, month] = items.apfacturafecha.split('-');
+            const date = new Date(year, month - 1);
+            const groupMonth = this.nameMonth[date.getMonth()];
+            const anio = date.getFullYear();
+
+            // Si el año no existe en el objeto, lo creamos
+            if (!acopioPorAnio[anio]) {
+                acopioPorAnio[anio] = {};
+            }
+
+            // Si el mes no existe dentro del año, lo inicializamos
+            if (!acopioPorAnio[anio][groupMonth]) {
+                acopioPorAnio[anio][groupMonth] = { kilos_netos: 0, total_compra: 0 };
+            }
+
+            // Sumamos los valores
+            acopioPorAnio[anio][groupMonth].kilos_netos += items.apfacturaapneto;
+            acopioPorAnio[anio][groupMonth].total_compra += items.apfacturatotal;
+        });
+
+        // Aseguramos que todos los meses existan en cada año
+        Object.keys(acopioPorAnio).forEach(year => {
+            this.nameMonth.forEach(month => {
+                if (!acopioPorAnio[year][month]) {
+                    acopioPorAnio[year][month] = { kilos_netos: 0, total_compra: 0 };
+                }
+            });
+        });
+
+        return acopioPorAnio; 
+    } catch (error) {
+        console.error("Error en getIncomeMonths", error);
+        throw error;
+    }
+ }
+ 
 	async getIncomeAlmacen(){
 		const data = await this.connectJson();
 		try {

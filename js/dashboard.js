@@ -1,65 +1,111 @@
 import Connect  from "./Connect.js";
 
-const chartAreaBorder = {
-  id: 'chartAreaBorder',
-  beforeDraw(chart, args, options) {
-    const {ctx, chartArea: {left, top, width, height}} = chart;
-    ctx.save();
-    ctx.strokeStyle = options.borderColor;
-    ctx.lineWidth = options.borderWidth;
-    ctx.setLineDash(options.borderDash || []);
-    ctx.lineDashOffset = options.borderDashOffset;
-    ctx.strokeRect(left, top, width, height);
-    ctx.restore();
-  }
-};
+new gridjs.Grid({
+  columns:["Almacen","Kilos Netos","P. Promedio","Total Compra"],
+  data:[
+    ["Almacen Florida","18,500.00","20.00","150,560.68"]
+  ]
+}).render(document.getElementById("table_almacen"));
+
+
+
 
 export async function dashboard(){
   const ctx = document.getElementById('myChart');
   const acopio = new Connect()
-  const data = await acopio.getIncomeMonths();
+  const data = await acopio.getAllIncomeByYear();
+  const tableMonths = await acopio.getIncomeByMonths();
   const months = acopio.nameMonth;
-  const lastMonth = await acopio.lastMonthsAcopio()
+  const lastMonth = await acopio.lastMonthsAcopio();
   incomeMonth(data);
-  
+    
+  const anio2024 = months.map((month => data[2024][month]?.kilos_netos || 0));
+  //falta desarrollar para que muestre solo los meses que contenga datos, ahora se esta usando slice
+  const anio2025 = months.slice(0,3).map((month => data[2025][month]?.kilos_netos || 0));
+
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: months,
       datasets: [
         {
-        label: 'KG',
-        data: Object.values(data).map((value,index)=>{
-              return index <= lastMonth ? value.kilos_netos : null
-              }).filter(value => value !== null),
+        label: '2024',
+        data: anio2024,
         borderWidth: 2,
         backgroundColor: 'white', 
-        borderColor: 'rgba(13, 71, 161,0.8)', 
-        //pointStyle: 'circle',
-        pointRadius: 5,
+        borderColor: '#f5b041', 
+        pointRadius: 4,
+        pointHoverRadius: 10
+        },
+        {
+        label: '2025',
+        data: anio2025,
+        borderWidth: 2,
+        backgroundColor: 'white', 
+        borderColor: '#1e8449', 
+        pointRadius: 4,
         pointHoverRadius: 10
         }
       ]
     },
     options: {
+      responsive: true,
       scales: {
+        x: {
+          ticks:{
+            font:{size:12,family:'Poppins'},
+            //color:'#1a5276'
+          },
+        },
         y: {
-          beginAtZero: true
-        }
+          beginAtZero: true,
+          ticks:{
+            font:{size:12},
+            callback: function(value){
+              return value.toLocaleString('en-US'); 
+            }
+          }
+        },
       },
-      plugins: {
+      plugins:{
         chartAreaBorder: {
           borderColor: 'rgba(13, 71, 161,0.5)',
           borderWidth: 2,
-          borderDash: [5, 5],
+          borderDash: [5, 10],
           borderDashOffset: 2,
+        },
+        title:{
+          display: true,
+          text: 'INGRESO DE CAFÉ PERGAMINO',
+          font:{size:16,family:'Poppins'}
+        },
+        tooltip: {
+          callbacks: {
+              label: function(context) {
+                  return context.raw.toLocaleString('en-US', { minimumFractionDigits: 2 });
+              }
+          }
         }
-      }
+      },
+      elements:{
+        line:{
+          tension:0.5
+        }
+      },
     },
-    plugins: [chartAreaBorder]
   }); 
 }
 
+const periodo = {
+  2024:{ene:{kg:200,total:500.50},feb:{kg:250,total:6000.5}},
+  2025:{ene:{kg:400,total:800.50},feb:{kg:350,total:5000.5}}
+}
+const anio24 = periodo[2024];
+const meses = Object.keys(anio24)
+meses.forEach((mes)=>{
+  const datomes = anio24[mes]
+  //console.log(mes,datomes.kg,datomes.total)
+});
 
 function incomeMonth(data){
   const tbody = document.getElementById('content-income-month');
@@ -72,6 +118,55 @@ function incomeMonth(data){
   let totalKilos = 0;
   let totalCompra = 0;
   let promedioTotal = 0;
+
+  const year25 = data[2025];
+  const datos = Object.keys(year25);
+  datos.forEach((value)=>{
+    const monthData = year25[value]
+    const promedio = monthData.total_compra / monthData.kilos_netos;
+    const rows = document.createElement('tr');
+    const cellMonths = document.createElement('td');
+    const cellKG = document.createElement('td');
+    const cellPromedio = document.createElement('td');
+    const cellTotal = document.createElement('td');
+    rows.appendChild(cellMonths).textContent = value;
+    console.log(value,monthData.kilos_netos)
+    tbody.appendChild(rows); 
+    if(monthData.kilos_netos === 0 && isNaN(promedio) && monthData.total_compra === 0){
+      rows.appendChild(cellKG).textContent = "0.00";
+      rows.appendChild(cellPromedio).textContent = "0.00";
+      rows.appendChild(cellTotal).textContent = "0.00";
+    }else{
+      rows.appendChild(cellKG).textContent = monthData.kilos_netos.toLocaleString('en-US');
+      rows.appendChild(cellPromedio).textContent = promedio.toFixed(2);
+      rows.appendChild(cellTotal).textContent = monthData.total_compra.toLocaleString('en-US');
+    }
+    totalKilos += monthData.kilos_netos;
+    totalCompra += monthData.total_compra;
+    promedioTotal += promedio;
+    cellKG.style.textAlign = 'right';
+    cellTotal.style.textAlign = 'right';
+  });
+  tr.appendChild(td1).textContent = "Total"
+  tr.appendChild(td2).textContent = (totalKilos).toLocaleString('en-US') + ".00";
+  tr.appendChild(td3).textContent = (totalCompra / totalKilos).toFixed(2);
+  tr.appendChild(td4).textContent = totalCompra.toLocaleString('en-US');
+  td3.style.textAlign = 'center';
+  tfoot.appendChild(tr);
+    
+}
+/*function incomeMonth(data,year){
+  const tbody = document.getElementById('content-income-month');
+  const tfoot = document.getElementById('tfoot');
+  const tr = document.createElement('tr');
+  const td1 = document.createElement('td');
+  const td2 = document.createElement('td');
+  const td3 = document.createElement('td');
+  const td4 = document.createElement('td');
+  let totalKilos = 0;
+  let totalCompra = 0;
+  let promedioTotal = 0;
+
   for(const[key,datos] of Object.entries(data)){
     const promedio = datos.total_compra / datos.kilos_netos;
     const rows = document.createElement('tr');
@@ -80,6 +175,7 @@ function incomeMonth(data){
     const cellPromedio = document.createElement('td');
     const cellTotal = document.createElement('td');
     rows.appendChild(cellMonths).textContent = key;
+    
     if(datos.kilos_netos === 0 && isNaN(promedio) && datos.total_compra === 0){
       rows.appendChild(cellKG).textContent = "0.00";
       rows.appendChild(cellPromedio).textContent = "0.00";
@@ -102,4 +198,4 @@ function incomeMonth(data){
   tr.appendChild(td4).textContent = totalCompra.toLocaleString('en-US');
   td3.style.textAlign = 'center';
   tfoot.appendChild(tr);
-}
+}*/
