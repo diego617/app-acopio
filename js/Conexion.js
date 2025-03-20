@@ -1,4 +1,4 @@
-const datos = [
+/*const datos = [
   {fecha:"2024-01-15",total: 50 },
   {fecha:"2024-02-20",total: 100 },
   {fecha:"2024-02-01",total: 150},
@@ -62,7 +62,55 @@ let resultado3 = operacion(8,5);
 
 console.log(resultado);
 console.log(resultado2);
-console.log(resultado3);
+console.log(resultado3);*/
+
+
+
+
+/*async function getAll(){
+  try {
+    const res = await fetch('../db/acopio_pergamino.json');
+    const data = await res.json()
+    console.log(data)
+  } catch (error) {
+    console.error(error)
+  }
+}
+getAll()*/
+
+
+class ConexionJSON{
+  constructor(){
+    this.url = '../db/acopio_pergamino.json';
+    this.months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
+  }
+  async conexion() {
+    try {
+      const res = await fetch(this.url);
+      if(!res.ok){
+        throw new error(`Error al obtener los datos json ${res.status}`);
+      }
+      return await res.json();
+    } catch (error) {
+      console.error("Error de conexion",error)
+    }
+  }
+  async getAllIncomeByMonth(){
+    const data = await this.conexion()
+    try {
+      
+    } catch (error) {
+      console.log("Error getAllIncomeByMonth",error)
+    }
+  }
+}
+
+async function getAllIncomeByMonth(){
+  const conexion =  new ConexionJSON();
+  const datos = await conexion.getData();
+  console.log(datos);
+}
+getAllIncomeByMonth()
 
 
 

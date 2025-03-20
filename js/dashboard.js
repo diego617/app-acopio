@@ -130,7 +130,7 @@ function incomeMonth(data){
     const cellPromedio = document.createElement('td');
     const cellTotal = document.createElement('td');
     rows.appendChild(cellMonths).textContent = value;
-    console.log(value,monthData.kilos_netos)
+    //console.log(value,monthData.kilos_netos)
     tbody.appendChild(rows); 
     if(monthData.kilos_netos === 0 && isNaN(promedio) && monthData.total_compra === 0){
       rows.appendChild(cellKG).textContent = "0.00";
