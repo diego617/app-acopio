@@ -79,7 +79,7 @@ console.log(resultado3);*/
 getAll()*/
 
 
-class ConexionJSON{
+export default class Conexion{
   constructor(){
     this.url = '../db/acopio_pergamino.json';
     this.months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
@@ -96,21 +96,57 @@ class ConexionJSON{
     }
   }
   async getAllIncomeByMonth(){
-    const data = await this.conexion()
+    const data = await this.conexion();
+    let acopio = {};
     try {
-      
+      data.forEach(value => {
+        const year = value.periodo;
+        const month = this.months[value.mes - 1];
+        //console.log("#:",month);
+        if(!acopio[year]){
+          acopio[year] = {};
+        }
+        if(!acopio[year][month]){
+          acopio[year][month] = {kilos_netos:0,total_compra:0};
+        }
+        acopio[year][month].kilos_netos += value.apfacturaapneto;
+        acopio[year][month].total_compra += value.apfacturatotal;
+      });
+      Object.keys(acopio).forEach(index =>{
+        this.months.forEach(mes =>{
+          if(!acopio[index][mes]){
+            acopio[index][mes] = {kilos_netos:0,total_netos:0}
+          }
+        });
+      });
+      return acopio;
     } catch (error) {
-      console.log("Error getAllIncomeByMonth",error)
+      console.log("Error getAllIncomeByMonth",error);
     }
+  }
+  async getAllIncomeByWarehouse(){
+    const data = await this.conexion();
+    let warehouse = {};
+    data.forEach(value => {
+      const year = value.periodo;
+      const codAlmacen = value.almacencodigo;
+      if(!warehouse[year]){
+        warehouse[year] = {};
+      }
+      if(!warehouse[year][codAlmacen]){
+        warehouse[year][codAlmacen] = {kilos_netos:0,total_compra:0};
+      }
+      warehouse[year][codAlmacen].kilos_netos += value.apfacturaapneto;
+      warehouse[year][codAlmacen].total_compra += value.apfacturatotal;
+    });
+    return warehouse;
   }
 }
 
-async function getAllIncomeByMonth(){
-  const conexion =  new ConexionJSON();
-  const datos = await conexion.getData();
-  console.log(datos);
-}
-getAllIncomeByMonth()
+/*const conexion =  new ConexionJSON();
+conexion.getAllIncomeByMonth();
+conexion.getAllIncomeByWarehouse();*/
+
 
 
 

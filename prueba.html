@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f4f4f4;
+    }
+</style>
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>Mes</th>
+            <th>Ingreso de Kilos</th>
+            <th>Precio Promedio</th>
+            <th>Total Compra</th>
+        </tr>
+    </thead>
+    <tbody id="tabla-body"></tbody>
+</table>
+
+<!-- Template para filas de la tabla -->
+<template id="fila-template">
+    <tr>
+        <td class="mes"></td>
+        <td class="kilos"></td>
+        <td class="precio"></td>
+        <td class="total"></td>
+    </tr>
+</template>
+
+</body>
+<script type="module" src="js/inicio.js"></script>
+</html>
