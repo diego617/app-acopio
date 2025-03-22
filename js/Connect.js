@@ -1,7 +1,7 @@
 
 export default class Connect{
 	constructor(){
-		this.url = '../db/acopio2024.json';
+		this.url = '../db/acopio_pergamino.json';
 		this.nameMonth = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Set','Oct','Nov','Dic'];
 		this.acopioMonth = {};
 		this.acopioAlmacen = {};
