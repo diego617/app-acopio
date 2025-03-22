@@ -1,47 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 table{
+  width: 100%;
   border-collapse: collapse;
-  /*border: 1px solid red;*/
-  overflow: hidden;
-  font-size: 0.8rem;
-  font-family: "Poppins", sans-serif;
-  border-radius: 8px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  background-color: #2c66b1;
 }
-
 table thead tr{
-  height: 50px;
-  /*border: 1px solid #cccccc;*/
-  background-color: #e2e2e2;
-  /*background-image: linear-gradient(to right, #a31fb8, #6722cc, #4327d2);*/
+  height: 40px;
 }
 table thead tr th{
-  /*border: 1px solid #cccccc;*/
-  color: #222222;
+  color: #ffffff;
   width: auto;
 }
 table thead tr th, table tbody tr td{
-  padding: 0px 10px;
+  padding: 1px 10px;
   text-align: center;
-}
-table tbody tr:last-of-type{
-  border-bottom: 2px solid #34495e
 }
 table tbody tr{
   border-bottom: 1px solid #cccccc;
+  background-color: #fdfefe
+}
+table tbody tr td{
+  width: auto;
+  height: 30px;
+  white-space: nowrap;
+  color: #333333;
+}
+table tfoot tr td{
+  padding: 0px 10px;
+  height: 30px;
+  text-align: right;
+  color: white;
+  font-weight: 600;
 }
 table tbody tr:hover{
   cursor: pointer;
-  background-color: #f3f3f3;
+  background-color:  #f3f3f3;
 }
-/*table tbody tr:nth-child(even){
-  background-color: #f3f3f3;
-}*/
-table tbody tr td{
-  width: auto;
-  white-space: nowrap;
-  height: 35px;
-  color: #333333;
-}
+
 table tbody tr .pg{
   display: flex;
   flex-direction: column;
@@ -55,6 +53,11 @@ table tbody tr .pg span{
   font-weight: 600;
   font-size: 12px;
   color: green;
+}
+.line-bar{
+  width: 100%;
+  height: auto;
+  background-color: #fdfefe;
 }
 .scroll{
   overflow-x: auto;

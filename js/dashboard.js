@@ -1,14 +1,5 @@
 import Connect  from "./Connect.js";
 
-new gridjs.Grid({
-  columns:["Almacen","Kilos Netos","P. Promedio","Total Compra"],
-  data:[
-    ["Almacen Florida","18,500.00","20.00","150,560.68"]
-  ]
-}).render(document.getElementById("table_almacen"));
-
-
-
 
 export async function dashboard(){
   const ctx = document.getElementById('myChart');
@@ -33,8 +24,8 @@ export async function dashboard(){
         data: anio2024,
         borderWidth: 2,
         backgroundColor: 'white', 
-        borderColor: '#f5b041', 
-        pointRadius: 4,
+        borderColor: '#1565c0', 
+        pointRadius: 3,
         pointHoverRadius: 10
         },
         {
@@ -43,7 +34,7 @@ export async function dashboard(){
         borderWidth: 2,
         backgroundColor: 'white', 
         borderColor: '#1e8449', 
-        pointRadius: 4,
+        pointRadius: 3,
         pointHoverRadius: 10
         }
       ]
@@ -69,15 +60,16 @@ export async function dashboard(){
       },
       plugins:{
         chartAreaBorder: {
-          borderColor: 'rgba(13, 71, 161,0.5)',
+          borderColor: 'rgba(13, 71, 161,0.1)',
           borderWidth: 2,
           borderDash: [5, 10],
           borderDashOffset: 2,
         },
         title:{
           display: true,
-          text: 'INGRESO DE CAFÉ PERGAMINO',
-          font:{size:16,family:'Poppins'}
+          text: 'Ingreso de café pergamino',
+          font:{size:16,family:'Poppins'},
+          color: '#555555'
         },
         tooltip: {
           callbacks: {
@@ -95,17 +87,6 @@ export async function dashboard(){
     },
   }); 
 }
-
-const periodo = {
-  2024:{ene:{kg:200,total:500.50},feb:{kg:250,total:6000.5}},
-  2025:{ene:{kg:400,total:800.50},feb:{kg:350,total:5000.5}}
-}
-const anio24 = periodo[2024];
-const meses = Object.keys(anio24)
-meses.forEach((mes)=>{
-  const datomes = anio24[mes]
-  //console.log(mes,datomes.kg,datomes.total)
-});
 
 function incomeMonth(data){
   const tbody = document.getElementById('content-income-month');
@@ -130,7 +111,6 @@ function incomeMonth(data){
     const cellPromedio = document.createElement('td');
     const cellTotal = document.createElement('td');
     rows.appendChild(cellMonths).textContent = value;
-    console.log(value,monthData.kilos_netos)
     tbody.appendChild(rows); 
     if(monthData.kilos_netos === 0 && isNaN(promedio) && monthData.total_compra === 0){
       rows.appendChild(cellKG).textContent = "0.00";

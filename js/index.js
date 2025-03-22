@@ -16,7 +16,7 @@ const handleLocation = async () =>{
   const path = window.location.hash || '#/';
   const route = routes[path] || routes[404];
   const html = await fetch(route).then((data) => data.text());
-  const content = document.getElementById('main-content');
+  const content = document.getElementById('main_content');
   content.innerHTML = html;
   importPages(path)
   navigation(path)

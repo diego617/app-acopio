@@ -30,7 +30,7 @@ function listTable(data){
 
 export async function conexionJson(){
   try {
-    const response = await fetch('../db/db.json');
+    const response = await fetch('../db/contrato.json');
     const data = await response.json();
     listTable(data);
   } catch (error) {
