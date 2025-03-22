@@ -50,6 +50,7 @@ export async function dashboard(){
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           ticks:{
@@ -65,7 +66,7 @@ export async function dashboard(){
               return value.toLocaleString('en-US'); 
             }
           }
-        },
+        }
       },
       plugins:{
         chartAreaBorder: {
