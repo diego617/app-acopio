@@ -41,12 +41,13 @@ export async function dashboard(){
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           ticks:{
             font:{size:12,family:'Poppins'},
             //color:'#1a5276'
-          },
+          }
         },
         y: {
           beginAtZero: true,
@@ -56,7 +57,7 @@ export async function dashboard(){
               return value.toLocaleString('en-US'); 
             }
           }
-        },
+        }
       },
       plugins:{
         chartAreaBorder: {
