@@ -1,18 +1,18 @@
 import Connect  from "./Connect.js";
+import Conexion from "./Conexion.js"
 
 
 export async function dashboard(){
   const ctx = document.getElementById('myChart');
-  const acopio = new Connect()
-  const data = await acopio.getAllIncomeByYear();
-  const tableMonths = await acopio.getIncomeByMonths();
-  const months = acopio.nameMonth;
-  const lastMonth = await acopio.lastMonthsAcopio();
+  const conexion = new Conexion()
+  const data = await conexion.getAllIncomeByMonth();
+  const lastmonth  = await conexion.lastMonth();
+  
+  const months = conexion.months;
+  //const lastMonth = await conexion.lastMonthsAcopio();
   incomeMonth(data);
-    
   const anio2024 = months.map((month => data[2024][month]?.kilos_netos || 0));
-  //falta desarrollar para que muestre solo los meses que contenga datos, ahora se esta usando slice
-  const anio2025 = months.slice(0,3).map((month => data[2025][month]?.kilos_netos || 0));
+  const anio2025 = months.slice(0,lastmonth).map((month => data[2025][month]?.kilos_netos || 0));
 
   new Chart(ctx, {
     type: 'line',

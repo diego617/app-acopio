@@ -34,7 +34,7 @@ export default class Conexion{
       Object.keys(acopio).forEach(index =>{
         this.months.forEach(mes =>{
           if(!acopio[index][mes]){
-            acopio[index][mes] = {kilos_netos:0,total_netos:0}
+            acopio[index][mes] = {kilos_netos:0,total_compra:0}
           }
         });
       });
@@ -46,25 +46,42 @@ export default class Conexion{
   async getAllIncomeByWarehouse(){
     const data = await this.conexion();
     let warehouse = {};
-    data.forEach(value => {
-      const year = value.periodo;
-      const codAlmacen = value.almacencodigo;
-      if(!warehouse[year]){
-        warehouse[year] = {};
-      }
-      if(!warehouse[year][codAlmacen]){
-        warehouse[year][codAlmacen] = {kilos_netos:0,total_compra:0};
-      }
-      warehouse[year][codAlmacen].kilos_netos += value.apfacturaapneto;
-      warehouse[year][codAlmacen].total_compra += value.apfacturatotal;
-    });
-    return warehouse;
+    try {
+      data.forEach(value => {
+        const year = value.periodo;
+        const codAlmacen = value.almacencodigo;
+        if(!warehouse[year]){
+          warehouse[year] = {};
+        }
+        if(!warehouse[year][codAlmacen]){
+          warehouse[year][codAlmacen] = {kilos_netos:0,total_compra:0};
+        }
+        warehouse[year][codAlmacen].kilos_netos += value.apfacturaapneto;
+        warehouse[year][codAlmacen].total_compra += value.apfacturatotal;
+      });
+      return warehouse;     
+    } catch (error) {
+      console.log("Error en getAllIncomeByWarehouse");
+    }
+  }
+  async lastMonth(){
+    const data = await this.conexion();
+    let last = 0;
+    try {
+      data.forEach(value =>{
+        last =  value.mes;
+      });
+      //console.log(last);
+      return last;
+    } catch (error) {
+      console.error("error en funcion lastMonth")
+    }
   }
 }
 
-/*const conexion =  new ConexionJSON();
-conexion.getAllIncomeByMonth();
-conexion.getAllIncomeByWarehouse();*/
+/*const conexion =  new Conexion();
+conexion.lastMonth();
+//conexion.getAllIncomeByWarehouse();*/
 
 
 
