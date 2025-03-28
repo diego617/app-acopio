@@ -28,7 +28,7 @@ body{
   border: 1px solid #4e0707;
 }
 #main_content{
-  margin-right: 50px;
+  padding-right: 50px;
   grid-area: main;
   border: 1px solid #c55050;
 }
