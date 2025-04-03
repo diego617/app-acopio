@@ -1,0 +1,12 @@
+
+
+.content_home{
+	display: flex;
+	align-content: center;
+	align-items: center;
+}
+
+.linea{
+	width: 300px;
+	border: 1px solid black;
+}
