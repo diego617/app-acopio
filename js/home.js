@@ -6,7 +6,7 @@ export async function showTable(){
   const lastmonth = await conexion.lastMonth();
   const months = conexion.months;
   totalQuitales(data);
-
+  showIncomeByMonths(data);
   const datos_2024 = months.map((month => data[2024][month]?.kilos_netos || 0));
   const datos_2025 = months.slice(0,lastmonth).map((month => data[2025][month]?.kilos_netos || 0));
   
@@ -65,6 +65,11 @@ const totalQuitales = (data)=>{
     quintales += value.kilos_netos / 60;
   }
   console.log(quintales);
+}
+
+const showIncomeByMonths = (data)=>{
+  const contenTable = document.getElementById('content-income-month');
+
 }
 
 
