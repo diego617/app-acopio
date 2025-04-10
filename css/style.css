@@ -79,14 +79,14 @@ nav ul li a img{
 
 /* main */
 
-/*main{
+main{
   display: grid;
-  grid-template-columns: 280px repeat(3,1fr);
+  grid-template-columns: 290px repeat(3,1fr);
   grid-template-rows: 100px 1fr 1fr;
   height: auto;
   grid-template-areas: 
   ". . . ."
-  "chart chart chart table"
+  "table chart chart chart"
   ". . . .";
   gap: 10px;
 }

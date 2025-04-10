@@ -29,11 +29,11 @@ export async function showTable(){
     labels: months,
     datasets:[
       {
-        label: 'Pergamino 2024',
+        label: '2024',
         data: datos_2024,
       },
       {
-        label: 'Pergamino 2025',
+        label: '2025',
         data: datos_2025
       }
     ]
@@ -68,7 +68,50 @@ const totalQuitales = (data)=>{
 }
 
 const showIncomeByMonths = (data)=>{
-  const contenTable = document.getElementById('content-income-month');
+  const tbody = document.getElementById('content-income-month');
+  const tfoot = document.getElementById('tfoot');
+  const tr = document.createElement('tr');
+  const td1 = document.createElement('td');
+  const td2 = document.createElement('td');
+  const td3 = document.createElement('td');
+  const td4 = document.createElement('td');
+  let totalKilos = 0;
+  let totalCompra = 0;
+  let promedioTotal = 0;
+
+  const year25 = data[2025];
+  const datos = Object.keys(year25);
+  datos.forEach((value)=>{
+    const monthData = year25[value]
+    const promedio = monthData.total_compra / monthData.kilos_netos;
+    const rows = document.createElement('tr');
+    const cellMonths = document.createElement('td');
+    const cellKG = document.createElement('td');
+    const cellPromedio = document.createElement('td');
+    const cellTotal = document.createElement('td');
+    rows.appendChild(cellMonths).textContent = value;
+    tbody.appendChild(rows); 
+    if(monthData.kilos_netos === 0 && isNaN(promedio) && monthData.total_compra === 0){
+      rows.appendChild(cellKG).textContent = "0.00";
+      rows.appendChild(cellPromedio).textContent = "0.00";
+      rows.appendChild(cellTotal).textContent = "0.00";
+    }else{
+      rows.appendChild(cellKG).textContent = monthData.kilos_netos.toLocaleString('en-US');
+      rows.appendChild(cellPromedio).textContent = promedio.toFixed(2);
+      rows.appendChild(cellTotal).textContent = monthData.total_compra.toLocaleString('en-US');
+    }
+    totalKilos += monthData.kilos_netos;
+    totalCompra += monthData.total_compra;
+    promedioTotal += promedio;
+    cellKG.style.textAlign = 'right';
+    cellTotal.style.textAlign = 'right';
+  });
+  tr.appendChild(td1).textContent = "Total"
+  tr.appendChild(td2).textContent = (totalKilos).toLocaleString('en-US') + ".00";
+  tr.appendChild(td3).textContent = (totalCompra / totalKilos).toFixed(2);
+  tr.appendChild(td4).textContent = totalCompra.toLocaleString('en-US');
+  td3.style.textAlign = 'center';
+  tfoot.appendChild(tr);
 
 }
 
