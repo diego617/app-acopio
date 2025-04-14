@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/table.css">
+	<title>Document</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>MES</th>
+				<th>K. NETOS</th>
+				<th>P. PROMEDIO</th>
+				<th>P. COMPRA</th>
+			</tr>
+		</thead>
+		<tbody id="content_income_month"></tbody>
+	</table>
+	<template id="template_tbody">
+		<tr>
+			<td id="mes"></td>
+			<td id="kNetos"></td>
+			<td id="pPromedio"></td>
+			<td id="pCompra"></td>
+		</tr>
+	</template>
+	<script type="module">
+		const template = document.getElementById('template_tbody');
+		const tbody = document.getElementById('content_income_month');
+		
+		const acopio = [
+			{mes:"ene",kilos:500.60,promedio:14.00,compra:10000.50},
+			{mes:"feb",kilos:750.60,promedio:15.50,compra:10500.50}
+		]
+		function createTableRow(datos){
+			const templateContent = template.content.cloneNode(true);
+
+			const mes = templateContent.getElementById('mes');
+			const kNetos = templateContent.getElementById('kNetos');
+			const pPromedio = templateContent.getElementById('pPromedio');
+			const pCompra = templateContent.getElementById('pCompra');
+			mes.textContent = datos.mes
+			mes.textContent = datos.kilos
+			mes.textContent = datos.promedio;
+			mes.textContent = datos.compra
+			return templateContent;
+		}
+		acopio.forEach(datos =>{
+			const row = createTableRow(datos);
+			tbody.appendChild(row);
+		});
+
+	</script>
+
+
+</body>
+</html>
