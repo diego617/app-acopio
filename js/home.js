@@ -66,10 +66,38 @@ const totalQuitales = (data)=>{
   }
   console.log(quintales);
 }
+const createTableRow = (month,valueData)=>{
+  
+  const tfoot = document.getElementById('tfoot');
+  const template = document.getElementById('template_tbody');
+
+
+  const formatter = new Intl.NumberFormat('es-PE');
+  const templateContent = template.content.cloneNode(true);
+
+  templateContent.querySelector('[data-id="mes"]').textContent = month;
+  templateContent.querySelector('[data-id="kNetos"').textContent = formatter.format(valueData.kilos_netos);
+  templateContent.querySelector('[data-id="Promedio"').textContent = (valueData.total_compra / valueData.kilos_netos).toFixed(2);
+  return templateContent;
+  /*console.log(month);
+  console.log(valueData);*/
+}
 
 const showIncomeByMonths = (data)=>{
   const tbody = document.getElementById('content-income-month');
-  const tfoot = document.getElementById('tfoot');
+  const periodo = data[2025];
+  const datos = Object.keys(periodo)
+  console.log(datos);
+  datos.forEach(month =>{
+    const valueData = periodo[month];
+    const row = createTableRow(month,valueData);
+		tbody.appendChild(row);
+    //console.log(value);
+    //console.log(valueData);
+  });
+
+}
+  /*
   const tr = document.createElement('tr');
   const td1 = document.createElement('td');
   const td2 = document.createElement('td');
@@ -112,7 +140,6 @@ const showIncomeByMonths = (data)=>{
   tr.appendChild(td4).textContent = totalCompra.toLocaleString('en-US');
   td3.style.textAlign = 'center';
   tfoot.appendChild(tr);
-
-}
+}*/
 
 
