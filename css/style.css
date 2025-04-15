@@ -80,7 +80,7 @@ nav ul li a img{
 /* main */
 
 main{
-  display: grid;
+  /*display: grid;
   grid-template-columns: 290px repeat(3,1fr);
   grid-template-rows: 100px 1fr 1fr;
   height: auto;
@@ -88,7 +88,7 @@ main{
   ". . . ."
   "table chart chart chart"
   ". . . .";
-  gap: 10px;
+  gap: 10px;*/
 }
 
 
